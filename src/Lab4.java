@@ -27,6 +27,73 @@ public class Lab4 {
         // Test print imported file array
         System.out.println(Arrays.toString(fileNameArray));
 
+        for (String s : fileNameArray) {
+
+            // Import a file
+            int[] unsortedArray = importDataFile(s);
+            System.out.println(Arrays.toString(unsortedArray));
+        }
+    }
+
+    /**
+     * This method imports a data file and stores it in an array.
+     * @param filename      The name of the data file.
+     * @return              An integer array containing the values imported from the file.
+     */
+    private static int[] importDataFile(String filename) {
+
+        // Declare variables used
+        String tempLine;
+        int[] unsorted = new int[1];
+        int i = 1;
+
+
+        try {
+            // Add the folder to the file path in which the data files are held
+            filename = "./input/" + filename;
+
+            // TODO remove test print
+            System.out.println("\nImporting " + filename + "...");
+
+
+            // Create the file and scanner objects
+            File dataFile = new File(filename);
+            Scanner dataFileScanner = new Scanner(new BufferedReader(new FileReader(dataFile)));
+
+            // Read the file line by line
+            while (dataFileScanner.hasNextLine()) {
+                tempLine = dataFileScanner.nextLine();
+
+                // Test if the line is empty; if so, continue to next loop
+                if (tempLine.isEmpty()) {
+
+                    // If we've reached an empty line, delete the last entry because it is null
+                    unsorted = Arrays.copyOf(unsorted, unsorted.length-1);
+
+                    continue;
+                }
+                else {
+                    unsorted[i-1] = Integer.parseInt(tempLine);
+                }
+
+                // Create new array to store the data
+                unsorted = Arrays.copyOf(unsorted, i+1);
+                i++;
+
+            }
+
+            // End of file has been reached; clean things up
+            dataFileScanner.close();
+
+            // Remove the null entry at the end of the array
+            unsorted = Arrays.copyOf(unsorted, unsorted.length-1);
+
+        } catch (FileNotFoundException fileExc) {
+            System.out.println("File not found: " + fileExc.getMessage() + ". Program exiting.");
+            System.exit(1);
+        }
+
+        return unsorted;
     }
 
     /**
@@ -43,15 +110,18 @@ public class Lab4 {
 
         try {
             // Create the file and scanner objects
-            File freqTableFile = new File(filename);
-            Scanner freqTableScanner = new Scanner(new BufferedReader(new FileReader(freqTableFile)));
+            File filenameFile = new File(filename);
+            Scanner fileScanner = new Scanner(new BufferedReader(new FileReader(filenameFile)));
 
             // Read the file line by line
-            while (freqTableScanner.hasNextLine()) {
-                tempLine = freqTableScanner.nextLine();
+            while (fileScanner.hasNextLine()) {
+                tempLine = fileScanner.nextLine();
 
                 // Test if the line is empty; if so, continue to next loop
                 if (tempLine.isEmpty()) {
+                    // If we've reached an empty line, delete the last entry because it is null
+                    fileNameArray = Arrays.copyOf(fileNameArray, fileNameArray.length-1);
+
                     continue;
                 }
                 else {
@@ -64,12 +134,17 @@ public class Lab4 {
                 i++;
 
             }
-            freqTableScanner.close();
+
+            // End of file has been reached; clean things up
+            fileScanner.close();
+
+            // Remove the null entry at the end of the array
+            fileNameArray = Arrays.copyOf(fileNameArray, fileNameArray.length-1);
+
         } catch (FileNotFoundException fileExc) {
             System.out.println("File not found: " + fileExc.getMessage() + ". Program exiting.");
             System.exit(1);
         }
-
 
         return fileNameArray;
     }
