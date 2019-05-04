@@ -22,56 +22,64 @@ public class Lab4 {
     public static void main(String[] args) {
 
         // Import files
-        String[] fileNameArray = importFileNames(args);
+        int[] problemSizeArray = importInputSizes(args);
+        // TODO remove: Test print imported file array
+        System.out.println(Arrays.toString(problemSizeArray));
 
-        // Test print imported file array
-        System.out.println(Arrays.toString(fileNameArray));
+        // Loop through each input size and sort
+        for (int i = 0; i < problemSizeArray.length; i++) {
+
+            // Generate the 3 cases for the input arrays: random, reverse, and ascending order
+
+        }
+
+
 
     }
 
     /**
-     * This method imports the file that contains all the input file names.
+     * This method imports the file that contains the sizes of the sorting exercises. Each line contains new exercise size.
      * @param args      The program runtime arguments, passed from main().
      * @return          Array of all file names to be used throughout hte program.
      */
-    private static String[] importFileNames(String[] args) {
+    private static int[] importInputSizes(String[] args) {
 
         String filename = args[0];
         String tempLine;
-        String[] fileNameArray = new String[1];
+        int[] problemSizeArray = new int[1];
         int i = 1;
 
         try {
             // Create the file and scanner objects
-            File freqTableFile = new File(filename);
-            Scanner freqTableScanner = new Scanner(new BufferedReader(new FileReader(freqTableFile)));
+            File inputSizeFile = new File(filename);
+            Scanner inputScanner = new Scanner(new BufferedReader(new FileReader(inputSizeFile)));
 
             // Read the file line by line
-            while (freqTableScanner.hasNextLine()) {
-                tempLine = freqTableScanner.nextLine();
+            while (inputScanner.hasNextLine()) {
+                tempLine = inputScanner.nextLine();
 
                 // Test if the line is empty; if so, continue to next loop
                 if (tempLine.isEmpty()) {
                     continue;
                 }
                 else {
-                    fileNameArray[i-1] = tempLine;
+                    problemSizeArray[i-1] = Integer.parseInt(tempLine);
                 }
 
                 // Create new array to store the data
-                fileNameArray = Arrays.copyOf(fileNameArray, i+1);
+                problemSizeArray = Arrays.copyOf(problemSizeArray, i+1);
 
                 i++;
 
             }
-            freqTableScanner.close();
+            inputScanner.close();
         } catch (FileNotFoundException fileExc) {
             System.out.println("File not found: " + fileExc.getMessage() + ". Program exiting.");
             System.exit(1);
         }
 
 
-        return fileNameArray;
+        return problemSizeArray;
     }
 }
 
