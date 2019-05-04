@@ -36,7 +36,7 @@ public class Lab4 {
 
             // Import a file
             int[] unsortedArray = importDataFile(fileNameArray[i]);
-            System.out.println(Arrays.toString(unsortedArray));
+            //System.out.println(Arrays.toString(unsortedArray));
 
             // Send the array to a method that calls the sorting algorithms
             results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i]);
@@ -63,7 +63,16 @@ public class Lab4 {
         int[] sortedArray = new int[unsortedArray.length];
 
         // Heap sort (use setter method to set sort performance time??)
-        sortedArray = heapSort(unsortedArray);
+
+        // Create heap sort object
+        sortedArray = HeapSort.sort(unsortedArray);
+
+        //sortedArray = heapSort(unsortedArray);
+
+        // TODO remove print original & sorted
+        System.out.println("Unsorted: " + Arrays.toString(unsortedArray));
+        System.out.println("Sorted: " + Arrays.toString(sortedArray));
+
 
         // Store performance results from heap sort
 
