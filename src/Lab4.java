@@ -24,15 +24,30 @@ public class Lab4 {
         // Import files
         String[] fileNameArray = importFileNames(args);
 
-        // Test print imported file array
+        // TODO remove test print imported file array
         System.out.println(Arrays.toString(fileNameArray));
 
-        for (String s : fileNameArray) {
+        // Create array of SortPerformance objects to store the results
+        SortPerformance[] results = new SortPerformance[fileNameArray.length];
+
+
+        // Loop through input files and sort them, storing the results
+        for (int i = 0; i < fileNameArray.length; i++) {
 
             // Import a file
             int[] unsortedArray = importDataFile(s);
             System.out.println(Arrays.toString(unsortedArray));
+
+            // Send the array to a method that calls the sorting algorithms
+            results[i] = sortWithAllMethods(unsortedArray);
+
+            //
+
+
         }
+
+
+        // Call method to print the results and store in summary output file
     }
 
     /**
