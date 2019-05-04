@@ -35,11 +35,11 @@ public class Lab4 {
         for (int i = 0; i < fileNameArray.length; i++) {
 
             // Import a file
-            int[] unsortedArray = importDataFile(s);
+            int[] unsortedArray = importDataFile(fileNameArray[i]);
             System.out.println(Arrays.toString(unsortedArray));
 
             // Send the array to a method that calls the sorting algorithms
-            results[i] = sortWithAllMethods(unsortedArray);
+            results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i]);
 
             //
 
@@ -47,7 +47,86 @@ public class Lab4 {
         }
 
 
-        // Call method to print the results and store in summary output file
+        // Call method to print create and print the summary output file
+    }
+
+    /**
+     * Method that takes an unsorted array and sends them to the sorting methods. It then sends the sorted results to a file.
+     * @param unsortedArray     An integer array of the unsorted values.
+     * @param filename          String representation of the filename.
+     * @return                  A SortPerformance object containing the performance of the sort.
+     */
+    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename) {
+
+        // Declare objects to be used in this method
+        SortPerformance performance = new SortPerformance(filename);
+        int[] sortedArray = new int[unsortedArray.length];
+
+        // Heap sort (use setter method to set sort performance time??)
+        sortedArray = heapSort(unsortedArray);
+
+        // Store performance results from heap sort
+
+
+        // Output sorted values to file
+
+
+
+
+        // Quicksort1
+
+        // Store performance results from heap sort
+
+        // Output sorted values to file
+
+
+
+        // Quicksort2
+
+        // Store performance results from heap sort
+
+        // Output sorted values to file
+
+
+
+
+
+        // Quicksort3
+
+        // Store performance results from heap sort
+
+        // Output sorted values to file
+
+
+
+
+        // Quicksort4
+
+        // Store performance results from heap sort
+
+        // Output sorted values to file
+
+
+
+
+
+
+        return performance;
+    }
+
+    /**
+     * This method sorts using a heap sort.
+     * @param unsortedArray     The unsorted array of integer values.
+     * @return                  An integer array of sorted values.
+     */
+    private static int[] heapSort(int[] unsortedArray) {
+
+        // Declare variables to be used in scope
+        int[] sorted = new int[unsortedArray.length];
+
+        // Sorting algorithm here
+
+        return sorted;
     }
 
     /**

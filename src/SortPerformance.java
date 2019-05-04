@@ -120,7 +120,7 @@ public class SortPerformance {
 
     /**
      * ToString method for a SortPerformance object.
-     * @return
+     * @return      A string representation of the SortPerformance object.
      */
     @Override public String toString() {
         return "SortPerformance{" +
