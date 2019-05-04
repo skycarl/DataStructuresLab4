@@ -15,17 +15,24 @@ public class HeapSort {
 
 
     /**
-     * Wrapper method that calls the heapSort() method with the size of the array, so that main() doesn't have to pass it
+     * Wrapper method that calls the heapSort() method with the size of the array, so that main() doesn't have to pass it.
+     * This also allows for the timing to happen closer to the actual sorting, for greater accuracy.
      * @param unsorted      The unsorted array to be sorted.
-     * @return
+     * @return              Time in nanoseconds that the sort took.
      */
-    public static void sort(int[] unsorted) {
+    public static long sort(int[] unsorted) {
 
         //int[] sorted = new int[unsorted.length];
 
+        // Begin timer, using nanoseconds
+        long startTime = System.nanoTime();
+
         heapSort(unsorted, unsorted.length);
 
-        //return sorted;
+        // End timer and return
+        long endTime = System.nanoTime();
+        return endTime - startTime;
+
     }
 
     /**
