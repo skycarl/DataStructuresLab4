@@ -52,26 +52,27 @@ public class Lab4 {
 
     /**
      * Method that takes an unsorted array and sends them to the sorting methods. It then sends the sorted results to a file.
-     * @param unsortedArray     An integer array of the unsorted values.
+     * @param inputArray     An integer array of the unsorted values.
      * @param filename          String representation of the filename.
      * @return                  A SortPerformance object containing the performance of the sort.
      */
-    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename) {
+    private static SortPerformance sortWithAllMethods(int[] inputArray, String filename) {
 
         // Declare objects to be used in this method
         SortPerformance performance = new SortPerformance(filename);
-        int[] sortedArray = new int[unsortedArray.length];
+        int[] sortedArray = new int[inputArray.length];
 
         // Heap sort (use setter method to set sort performance time??)
 
         // Create heap sort object
-        sortedArray = HeapSort.sort(unsortedArray);
+        int[] unsortedArray = Arrays.copyOf(inputArray, inputArray.length);
+        HeapSort.sort(inputArray);
 
         //sortedArray = heapSort(unsortedArray);
 
         // TODO remove print original & sorted
-        System.out.println("Unsorted: " + Arrays.toString(unsortedArray));
-        System.out.println("Sorted: " + Arrays.toString(sortedArray));
+        System.out.println("Unsorted: \t" + Arrays.toString(unsortedArray));
+        System.out.println("Sorted: \t" + Arrays.toString(inputArray));
 
 
         // Store performance results from heap sort
@@ -205,6 +206,8 @@ public class Lab4 {
      * @return          Array of all file names to be used throughout hte program.
      */
     private static String[] importFileNames(String[] args) {
+
+        // TODO there is some weird behavior when there are extra blank lines in this file; truncates the last element
 
         String filename = args[0];
         String tempLine;
