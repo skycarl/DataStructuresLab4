@@ -32,6 +32,8 @@ public class QuickSort4 {
         return endTime - startTime;
     }
 
+
+
     /**
      * Method that defines the partition, using the first element as the pivot.
      * @param arr       The array to be sorted.
@@ -42,7 +44,7 @@ public class QuickSort4 {
     private static int partition(int[] arr, int first, int last) {
         //int pivot = arr[first]; // Choose the first element as the pivot
 
-        int mid = (last + first) / 2;
+        //int mid = (last + first) / 2;
         int pivot = medianPivot(arr, first, last);
 
         int low = first + 1; // Index for forward search
@@ -86,7 +88,7 @@ public class QuickSort4 {
      * @param high
      * @return
      */
-    public static int medianPivot(int arr[], int low, int high) {
+    public static int medianPivot(int[] arr, int low, int high) {
         /*
          * create subarray with low, high, and middle elements in the array sort the
          * subarray and use index 1 as the median of 3
@@ -106,6 +108,7 @@ public class QuickSort4 {
         //System.out.println("\t"+ Arrays.toString(sortingArr));
         //printArray(sortingArr);
 
+        /*
         // swap with the last to serve as pivot
         int temp = arr[high];
         arr[high] = middleValue;
@@ -115,7 +118,11 @@ public class QuickSort4 {
             arr[mid] = temp;
         }
 
-        return partition(arr, low, high); //TODO whats up here?
+         */
+
+        return middleValue;
+
+        //return partition(arr, low, high); //TODO whats up here?
 
     }
 
