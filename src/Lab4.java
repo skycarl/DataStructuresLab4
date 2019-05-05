@@ -23,11 +23,9 @@ public class Lab4 {
      */
     public static void main(String[] args) {
 
-
-
         // Output filenames
         String inputFilenames = null;
-        String sortedOutputFilename;
+        String sortedOutputFilename = null;
         String summaryOutputFilename;
 
         // Set up output file names; use default names if output file names are not specified
@@ -36,11 +34,23 @@ public class Lab4 {
             sortedOutputFilename = args[1];
             summaryOutputFilename = args[2];
 
+            // Delete old output files
+            deletePreviousFile(sortedOutputFilename);
+            deletePreviousFile(summaryOutputFilename);
+
+        }
+        else if (args.length == 2) {
+            System.out.println("Error: specify either one or three runtime parameters. Refer to README.md for more information and try again.");
+            System.exit(1);
         }
         else if (args.length == 1) { // Case where we default to default output filenames
+            inputFilenames = args[0];
             sortedOutputFilename = "sortedOutput.txt";
             summaryOutputFilename = "summaryOutput.txt";
 
+            // Delete output files
+            deletePreviousFile(sortedOutputFilename);
+            deletePreviousFile(summaryOutputFilename);
         }
         else if (args.length == 0) {
             System.out.println("Error: runtime parameters must be specified. At minimum, specify name of file containing input filenames.");
@@ -60,6 +70,9 @@ public class Lab4 {
         // Create array of SortPerformance objects to store the results
         SortPerformance[] results = new SortPerformance[fileNameArray.length];
 
+        // Create sorted output file name
+        File sortedOutputFile = new File(sortedOutputFilename);
+
 
         // Loop through input files and sort them, storing the results
         for (int i = 0; i < fileNameArray.length; i++) {
@@ -69,7 +82,7 @@ public class Lab4 {
             //System.out.println(Arrays.toString(unsortedArray));
 
             // Send the array to a method that calls the sorting algorithms
-            results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i]);
+            results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i], sortedOutputFile);
 
             //
 
@@ -86,7 +99,7 @@ public class Lab4 {
      * @param filename          String representation of the filename.
      * @return                  A SortPerformance object containing the performance of the sort.
      */
-    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename) {
+    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename, File sortedOutputFile) {
 
         // Declare method variables
         int[] heapSorted;
@@ -94,7 +107,6 @@ public class Lab4 {
         int[] quickSorted2;
         int[] quickSorted3;
         int[] quickSorted4;
-
         int[] insertionSorted;
         long runTime;
 
@@ -108,13 +120,13 @@ public class Lab4 {
 
         // Call the HeapSort class to sort the array and record the runtime in nanoseconds
         runTime = HeapSort.sort(heapSorted);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setHeapSort(runTime);
 
-        // TODO output results to file
-        System.out.println("Unsorted: \t\t\t" + Arrays.toString(unsortedArray));
-        System.out.println("Heapsorted: \t\t" + Arrays.toString(heapSorted));
+        // Output results to file
+        printStringToFile("\nUnsorted: \t\t\t" + Arrays.toString(unsortedArray), sortedOutputFile);
+        printStringToFile("\nHeapsorted: \t\t" + Arrays.toString(heapSorted), sortedOutputFile);
+        //System.out.println("Unsorted: \t\t\t" + Arrays.toString(unsortedArray));
+        //System.out.println("Heapsorted: \t\t" + Arrays.toString(heapSorted));
 
 
         // ***** Quicksort1 *****
@@ -123,12 +135,11 @@ public class Lab4 {
 
         // Call the QuickSort1 class to sort the array and record the runtime in nanoseconds
         runTime = QuickSort1.sort(quickSorted1);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setQuickSort1(runTime);
 
-       // TODO Output sorted values to file
-        System.out.println("Quicksorted1: \t\t" + Arrays.toString(quickSorted1));
+        // Output sorted values to file
+        printStringToFile("\nQuicksorted1: \t\t" + Arrays.toString(quickSorted1), sortedOutputFile);
+        //System.out.println("Quicksorted1: \t\t" + Arrays.toString(quickSorted1));
 
 
 
@@ -138,12 +149,11 @@ public class Lab4 {
 
         // Call the QuickSort2 class to sort the array and record the runtime in nanoseconds
         runTime = QuickSort2.sort(quickSorted2);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setQuickSort2(runTime);
 
-        // TODO Output sorted values to file
-        System.out.println("Quicksorted2: \t\t" + Arrays.toString(quickSorted2));
+        // Output sorted values to file
+        //System.out.println("Quicksorted2: \t\t" + Arrays.toString(quickSorted2));
+        printStringToFile("\nQuicksorted2: \t\t" + Arrays.toString(quickSorted2), sortedOutputFile);
 
 
 
@@ -153,13 +163,11 @@ public class Lab4 {
 
         // Call the QuickSort3 class to sort the array and record the runtime in nanoseconds
         runTime = QuickSort3.sort(quickSorted3);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setQuickSort3(runTime);
 
-        // TODO Output sorted values to file
-        System.out.println("Quicksorted3: \t\t" + Arrays.toString(quickSorted3));
-
+        // Output sorted values to file
+        //System.out.println("Quicksorted3: \t\t" + Arrays.toString(quickSorted3));
+        printStringToFile("\nQuicksorted3: \t\t" + Arrays.toString(quickSorted3), sortedOutputFile);
 
 
 
@@ -169,12 +177,11 @@ public class Lab4 {
 
         // Call the QuickSort4 class to sort the array and record the runtime in nanoseconds
         runTime = QuickSort4.sort(quickSorted4);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setQuickSort4(runTime);
 
-        // TODO Output sorted values to file
-        System.out.println("Quicksorted4: \t\t" + Arrays.toString(quickSorted4));
+        // Output sorted values to file
+        //System.out.println("Quicksorted4: \t\t" + Arrays.toString(quickSorted4));
+        printStringToFile("\nQuicksorted4: \t\t" + Arrays.toString(quickSorted4), sortedOutputFile);
 
 
         // ***** InsertionSort *****
@@ -184,32 +191,19 @@ public class Lab4 {
 
         // Call the HeapSort class to sort the array and record the runtime in nanoseconds
         runTime = InsertionSort.sort(insertionSorted);
-
-        // Write the sort time in nanoseconds to the performance object
         performance.setInsertionSort(runTime);
 
-        // TODO Output sorted values to file
-        System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
+        // Output sorted values to file
+        //System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
+        printStringToFile("\nInsertionSorted: \t" + Arrays.toString(insertionSorted), sortedOutputFile);
 
         // TODO remove
-        System.out.println(performance.toString());
+        //System.out.println(performance.toString());
+
+        // Print timing data to file
+        printStringToFile(performance.toString(), sortedOutputFile);
 
         return performance;
-    }
-
-    /**
-     * This method sorts using a heap sort.
-     * @param unsortedArray     The unsorted array of integer values.
-     * @return                  An integer array of sorted values.
-     */
-    private static int[] heapSort(int[] unsortedArray) {
-
-        // Declare variables to be used in scope
-        int[] sorted = new int[unsortedArray.length];
-
-        // Sorting algorithm here
-
-        return sorted;
     }
 
     /**
@@ -230,7 +224,7 @@ public class Lab4 {
             filename = "./input/" + filename;
 
             // TODO remove test print
-            System.out.println("\nImporting " + filename + "...");
+            //System.out.println("\nImporting " + filename + "...");
 
 
             // Create the file and scanner objects

@@ -8,6 +8,9 @@ The user must specify 3 runtime parameters:
 2. [Optional] The desired name of the output file (which contains original and sorted data, as well as sort performance)
 3. [Optional] Summary data file name (which contains only summary information on the sorts)
 
+Either one or three runtime parameters must be specified. In other words, if one optional parameter is used, 
+the other must be specified as well. The program will delete any output files of the same name as the output files in a given run. 
+
 If the two optional parameters are not specified, the program will assign a name. 
 
 Input files must be held in a folder in the root project directory titled "input". The input files must have one value on each line.  
