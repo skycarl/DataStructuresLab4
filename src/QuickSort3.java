@@ -3,9 +3,10 @@
  * Quicksort is used down to a partition size of k=50, then an insertion sort is used to finish.
  *
  * Note: this class was adapted from code from https://www.geeksforgeeks.org/iterative-quick-sort/
+ * and https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_23/Exercise_23_04/Exercise_23_04.java
  *
  * @author Skyler Carlson
- * @since 2019-05-04
+ * @since 2019-05-05
  */
 
 public class QuickSort3 {

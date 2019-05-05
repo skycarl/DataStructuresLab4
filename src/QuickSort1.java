@@ -38,7 +38,6 @@ public class QuickSort1 {
      */
     private static int partition(int[] arr, int first, int last)
     {
-
         int pivot = arr[first]; // Choose the first element as the pivot
         int low = first + 1; // Index for forward search
         int high = last; // Index for backward search
