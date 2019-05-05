@@ -11,10 +11,7 @@
   @since 2019-05-01
  */
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.*;
 import java.util.Arrays;
 import java.util.Scanner;
 
@@ -26,8 +23,36 @@ public class Lab4 {
      */
     public static void main(String[] args) {
 
+
+
+        // Output filenames
+        String inputFilenames = null;
+        String sortedOutputFilename;
+        String summaryOutputFilename;
+
+        // Set up output file names; use default names if output file names are not specified
+        if (args.length == 3) {
+            inputFilenames = args[0];
+            sortedOutputFilename = args[1];
+            summaryOutputFilename = args[2];
+
+        }
+        else if (args.length == 1) { // Case where we default to default output filenames
+            sortedOutputFilename = "sortedOutput.txt";
+            summaryOutputFilename = "summaryOutput.txt";
+
+        }
+        else if (args.length == 0) {
+            System.out.println("Error: runtime parameters must be specified. At minimum, specify name of file containing input filenames.");
+            System.exit(1);
+        }
+        else { // Unspecified error with runtime parameters
+            System.out.println("Unspecified error with runtime parameters. Refer to README.md and try again.");
+            System.exit(1);
+        }
+
         // Import files
-        String[] fileNameArray = importFileNames(args);
+        String[] fileNameArray = importFileNames(inputFilenames);
 
         // TODO remove test print imported file array
         System.out.println("Imported files: " + Arrays.toString(fileNameArray));
@@ -70,14 +95,12 @@ public class Lab4 {
         int[] quickSorted3;
         int[] quickSorted4;
 
-
         int[] insertionSorted;
         long runTime;
 
         // Declare objects to be used in this method
         SortPerformance performance = new SortPerformance(filename);
         int[] sortedArray = new int[unsortedArray.length];
-
 
         // ***** Heapsort *****
         // Make a deep copy of the unsorted array so we can keep track of it for later
@@ -124,8 +147,6 @@ public class Lab4 {
 
 
 
-
-
         // ***** Quicksort3 *****
         // Make a deep copy of the unsorted array so we can keep track of it for later
         quickSorted3 = Arrays.copyOf(unsortedArray, unsortedArray.length);
@@ -156,7 +177,6 @@ public class Lab4 {
         System.out.println("Quicksorted4: \t\t" + Arrays.toString(quickSorted4));
 
 
-
         // ***** InsertionSort *****
 
         // Make a deep copy of the unsorted array so we can keep track of it for later
@@ -171,16 +191,8 @@ public class Lab4 {
         // TODO Output sorted values to file
         System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
 
-
-
-
         // TODO remove
         System.out.println(performance.toString());
-
-
-
-
-
 
         return performance;
     }
@@ -263,14 +275,13 @@ public class Lab4 {
 
     /**
      * This method imports the file that contains all the input file names.
-     * @param args      The program runtime arguments, passed from main().
-     * @return          Array of all file names to be used throughout hte program.
+     * @param filename      The name of the file containing all input files.
+     * @return                    Array of all file names to be used throughout hte program.
      */
-    private static String[] importFileNames(String[] args) {
+    private static String[] importFileNames(String filename) {
 
         // TODO there is some weird behavior when there are extra blank lines in this file; truncates the last element
 
-        String filename = args[0];
         String tempLine;
         String[] fileNameArray = new String[1];
         int i = 1;
@@ -315,6 +326,38 @@ public class Lab4 {
         }
 
         return fileNameArray;
+    }
+
+    /**
+     * Simple method to print a string to a file.
+     *
+     * @param str           String to be printed
+     * @param outputFile    File object that is the output file
+     */
+    private static void printStringToFile(String str, File outputFile) {
+        try {
+            // Create FileWriter object in append mode
+            FileWriter outWriter = new FileWriter(outputFile, true);
+
+            // Write the string to file
+            outWriter.write(str);
+            outWriter.close();
+
+        } catch (IOException ioExc) {
+            System.out.println("Error writing to file " + ioExc.getMessage() +
+                    ". Program exiting.");
+        }
+    }
+
+    /**
+     * This method deletes the previous file, if one exists of the same name.
+     *
+     * @param filename      The name of the output file, specified in runtime
+     * parameters.
+     */
+    private static void deletePreviousFile(String filename) {
+        File oldFile = new File(filename);
+        oldFile.delete();
     }
 }
 

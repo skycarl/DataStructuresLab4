@@ -1,8 +1,16 @@
 # DataStructuresLab4
-This program accepts input files containing integers and sorts them using quicksort and heapsort algorithms. Statistics are then printed to an output file. 
+This program accepts input files containing integers and sorts them using quicksort and heapsort algorithms. 
+Statistics are then printed to an output file. 
 
 #### **Input**  
-The user must specify 2 runtime parameters: the name of the file containing filenames of all input files, and the desired name of the output file. Input files must be held in a folder in the root project directory titled "input". The input files must have one value on each line. 
+The user must specify 3 runtime parameters: 
+1. The name of the file containing filenames of all input files (this file must be in the project root directory)
+2. [Optional] The desired name of the output file (which contains original and sorted data, as well as sort performance)
+3. [Optional] Summary data file name (which contains only summary information on the sorts)
+
+If the two optional parameters are not specified, the program will assign a name. 
+
+Input files must be held in a folder in the root project directory titled "input". The input files must have one value on each line.  
  
 Note: input files are assumed to be UTF-8 encoded. Unexpected behavior may occur if others are used.
 
@@ -10,7 +18,7 @@ Note: input files are assumed to be UTF-8 encoded. Unexpected behavior may occur
 #### **Execution**
 The program may be compiled and run from the command line or terminal as such:    
 javac Lab4.java  
-java Lab4 inputFiles.txt summaryData.txt
+java Lab4 inputFiles.txt sortedData.txt summaryData.txt
 
 
 #### **System information**
