@@ -66,6 +66,10 @@ public class Lab4 {
         // Declare method variables
         int[] heapSorted;
         int[] quickSorted1;
+        int[] quickSorted2;
+
+
+        int[] insertionSorted;
         long runTime;
 
         // Declare objects to be used in this method
@@ -84,8 +88,8 @@ public class Lab4 {
         performance.setHeapSort(runTime);
 
         // TODO output results to file
-        System.out.println("Unsorted: \t\t" + Arrays.toString(unsortedArray));
-        System.out.println("Heapsorted: \t" + Arrays.toString(heapSorted));
+        System.out.println("Unsorted: \t\t\t" + Arrays.toString(unsortedArray));
+        System.out.println("Heapsorted: \t\t" + Arrays.toString(heapSorted));
 
 
         // ***** Quicksort1 *****
@@ -99,15 +103,22 @@ public class Lab4 {
         performance.setQuickSort1(runTime);
 
        // TODO Output sorted values to file
-        System.out.println("Quicksorted1: \t" + Arrays.toString(heapSorted));
+        System.out.println("Quicksorted1: \t\t" + Arrays.toString(heapSorted));
 
 
 
         // ***** Quicksort2 *****
+        // Make a deep copy of the unsorted array so we can keep track of it for later
+        quickSorted2 = Arrays.copyOf(unsortedArray, unsortedArray.length);
 
-        // Store performance results from heap sort
+        // Call the HeapSort class to sort the array and record the runtime in nanoseconds
+        runTime = QuickSort2.sort(quickSorted2);
 
-        // Output sorted values to file
+        // Write the sort time in nanoseconds to the performance object
+        performance.setQuickSort2(runTime);
+
+        // TODO Output sorted values to file
+        System.out.println("Quicksorted2: \t\t" + Arrays.toString(heapSorted));
 
 
 
@@ -127,6 +138,24 @@ public class Lab4 {
         // Store performance results from heap sort
 
         // Output sorted values to file
+
+
+
+        // ***** InsertionSort *****
+
+        // Make a deep copy of the unsorted array so we can keep track of it for later
+        insertionSorted = Arrays.copyOf(unsortedArray, unsortedArray.length);
+
+        // Call the HeapSort class to sort the array and record the runtime in nanoseconds
+        runTime = InsertionSort.sort(insertionSorted);
+
+        // Write the sort time in nanoseconds to the performance object
+        performance.setInsertionSort(runTime);
+
+        // TODO Output sorted values to file
+        System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
+
+
 
 
         // TODO remove

@@ -13,6 +13,7 @@ public class SortPerformance {
     private long quickSort3;
     private long quickSort4;
     private long heapSort;
+    private long insertionSort;
 
     /**
      * Constructor for the a SortPerformance object.
@@ -119,6 +120,22 @@ public class SortPerformance {
     }
 
     /**
+     * Getter method for the insertion sort.
+     * @return      The time in which the insertion sort executed.
+     */
+    public long getInsertionSort() {
+        return insertionSort;
+    }
+
+    /**
+     * Setter method for the insertion sort.
+     * @param insertionSort     The time in which the insertion sort executed.
+     */
+    public void setInsertionSort(long insertionSort) {
+        this.insertionSort = insertionSort;
+    }
+
+    /**
      * ToString method for a SortPerformance object.
      * @return      A string representation of the SortPerformance object.
      */
@@ -130,6 +147,7 @@ public class SortPerformance {
                 ", quickSort3=" + quickSort3 +
                 ", quickSort4=" + quickSort4 +
                 ", heapSort=" + heapSort +
+                ", insertionSort=" + insertionSort +
                 '}';
     }
 }
