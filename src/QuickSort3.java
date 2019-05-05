@@ -1,6 +1,6 @@
 /**
  * This class defines the first QuickSort functionality. The first item of the partition is selected as the pivot.
- * Quicksort is used down to a partition size of k=100, then an insertion sort is used to finish.
+ * Quicksort is used down to a partition size of k=50, then an insertion sort is used to finish.
  *
  * Note: this class was adapted from code from https://www.geeksforgeeks.org/iterative-quick-sort/
  *
@@ -8,7 +8,7 @@
  * @since 2019-05-04
  */
 
-public class QuickSort2 {
+public class QuickSort3 {
 
     /**
      * Wrapper method to call the quickSortIterative method easier from the driver class. This also allows for timing to
@@ -92,7 +92,7 @@ public class QuickSort2 {
         stack[++top] = h;
 
         // Keep popping from stack while is not empty
-        while (top >= 0 && ((h - l) > 100))
+        while (top >= 0 && ((h - l) > 50))
         {
             // Pop h and l
             h = stack[top--];

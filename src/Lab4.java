@@ -67,6 +67,7 @@ public class Lab4 {
         int[] heapSorted;
         int[] quickSorted1;
         int[] quickSorted2;
+        int[] quickSorted3;
 
 
         int[] insertionSorted;
@@ -125,10 +126,17 @@ public class Lab4 {
 
 
         // ***** Quicksort3 *****
+        // Make a deep copy of the unsorted array so we can keep track of it for later
+        quickSorted3 = Arrays.copyOf(unsortedArray, unsortedArray.length);
 
-        // Store performance results from heap sort
+        // Call the HeapSort class to sort the array and record the runtime in nanoseconds
+        runTime = QuickSort3.sort(quickSorted3);
 
-        // Output sorted values to file
+        // Write the sort time in nanoseconds to the performance object
+        performance.setQuickSort3(runTime);
+
+        // TODO Output sorted values to file
+        System.out.println("Quicksorted3: \t\t" + Arrays.toString(quickSorted3));
 
 
 
