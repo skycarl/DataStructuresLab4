@@ -37,16 +37,16 @@ public class QuickSort4 {
     /**
      * Method that defines the partition, using the first element as the pivot.
      * @param arr       The array to be sorted.
-     * @param first       The low value of the partition.
+     * @param first     The low value of the partition.
      * @param last      The high value of the partition.
      * @return          Final sorted position of the pivot.
      */
     private static int partition(int[] arr, int first, int last) {
-        //int pivot = arr[first]; // Choose the first element as the pivot
 
-        //int mid = (last + first) / 2;
-        int pivot = medianPivot(arr, first, last);
+        // Find the median value and store it in the first value of the array
+        medianPivot(arr, first, last);
 
+        int pivot = arr[first]; // Choose the first element as the pivot, which is now the median value
         int low = first + 1; // Index for forward search
         int high = last; // Index for backward search
 
@@ -83,47 +83,31 @@ public class QuickSort4 {
 
     /**
      * Selects the pivot based on a Median-of-Three strategy.
-     * @param arr
-     * @param low
-     * @param high
-     * @return
+     * @param arr       The array, or sub-array being sorted.
+     * @param low       The low index of the array.
+     * @param high      The high index of the array.
      */
-    public static int medianPivot(int[] arr, int low, int high) {
-        /*
-         * create subarray with low, high, and middle elements in the array sort the
-         * subarray and use index 1 as the median of 3
-         */
+    public static void medianPivot(int[] arr, int low, int high) {
 
-        int first = arr[low];
-        int last = arr[arr.length - 1];
         int mid = (high) / 2;
 
         //System.out.println("\tMiddle of Arr at Index= " + mid + " : " + arr[mid]);
         int[] sortingArr = { arr[low], arr[mid], arr[high] };
 
-        // TODO change to native insertionsort?
-        Arrays.sort(sortingArr);
+        // Sort this array so we can select the median value
+        InsertionSort.sort(sortingArr);
 
+        // Select the middle value
         int middleValue = sortingArr[1];
-        //System.out.println("\t"+ Arrays.toString(sortingArr));
-        //printArray(sortingArr);
 
-        /*
-        // swap with the last to serve as pivot
-        int temp = arr[high];
-        arr[high] = middleValue;
-        if (middleValue == arr[low]) {
-            arr[low] = temp;
+        // Swap with the first to serve as pivot
+        int temp = arr[low];
+        arr[low] = middleValue;
+        if (middleValue == arr[high]) {
+            arr[high] = temp;
         } else if (middleValue == arr[mid]) {
             arr[mid] = temp;
         }
-
-         */
-
-        return middleValue;
-
-        //return partition(arr, low, high); //TODO whats up here?
-
     }
 
     /**
