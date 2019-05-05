@@ -32,45 +32,46 @@ public class QuickSort1 {
     /**
      * Method that defines the partition, using the first element as the pivot.
      * @param arr       The array to be sorted.
-     * @param low       The low value of the partition.
-     * @param high      The high value of the partition.
+     * @param first       The low value of the partition.
+     * @param last      The high value of the partition.
      * @return          Final sorted position of the pivot.
      */
-    private static int partition(int[] arr, int low, int high)
+    private static int partition(int[] arr, int first, int last)
     {
 
-        /*
-          int pivot = arr[high];
+        int pivot = arr[first]; // Choose the first element as the pivot
+        int low = first + 1; // Index for forward search
+        int high = last; // Index for backward search
 
-          // index of smaller element
-          int i = (low-1);
-          for (int j = low; j <= high-1; j++)
-         */
+        while (high > low) {
+            // Search forward from left
+            while (low <= high && arr[low] <= pivot)
+                low++;
 
-        int pivot = arr[high];
+            // Search backward from right
+            while (low <= high && arr[high] > pivot)
+                high--;
 
-        // index of smaller element
-        int i = (low-1);
-        for (int j = low; j <= high-1; j++)
-        {
-            // If current element is smaller than or equal to pivot
-            if (arr[j] <= pivot)
-            {
-                i++;
-
-                // swap arr[i] and arr[j]
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
+            // Swap two elements in the list
+            if (high > low) {
+                int temp = arr[high];
+                arr[high] = arr[low];
+                arr[low] = temp;
             }
         }
 
-        // Swap arr[i+1] and arr[high] (or pivot)
-        int temp = arr[i+1];
-        arr[i+1] = arr[high];
-        arr[high] = temp;
+        while (high > first && arr[high] >= pivot)
+            high--;
 
-        return i+1;
+        // Swap pivot with list[high]
+        if (pivot > arr[high]) {
+            arr[first] = arr[high];
+            arr[high] = pivot;
+            return high;
+        }
+        else {
+            return first;
+        }
     }
 
     /**
