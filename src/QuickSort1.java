@@ -3,6 +3,7 @@
  * of size one and two is the stopping case.
  *
  * Note: this class was adapted from code from https://www.geeksforgeeks.org/iterative-quick-sort/
+ * and https://github.com/jsquared21/Intro-to-Java-Programming/blob/master/Exercise_23/Exercise_23_04/Exercise_23_04.java
  *
  * @author Skyler Carlson
  * @since 2019-05-04
@@ -33,13 +34,22 @@ public class QuickSort1 {
      * @param arr       The array to be sorted.
      * @param low       The low value of the partition.
      * @param high      The high value of the partition.
-     * @return
+     * @return          Final sorted position of the pivot.
      */
     private static int partition(int[] arr, int low, int high)
     {
-        int pivot = arr[low];
 
-        // Index of smaller element
+        /*
+          int pivot = arr[high];
+
+          // index of smaller element
+          int i = (low-1);
+          for (int j = low; j <= high-1; j++)
+         */
+
+        int pivot = arr[high];
+
+        // index of smaller element
         int i = (low-1);
         for (int j = low; j <= high-1; j++)
         {
@@ -77,7 +87,7 @@ public class QuickSort1 {
         // initialize top of stack
         int top = -1;
 
-        // Push initial values of l and h to stack
+        // push initial values of l and h to stack
         stack[++top] = l;
         stack[++top] = h;
 
@@ -88,17 +98,20 @@ public class QuickSort1 {
             h = stack[top--];
             l = stack[top--];
 
-            // Set pivot element at its correct position in sorted array
+            // Set pivot element at its correct position
+            // in sorted array
             int p = partition(arr, l, h);
 
-            // If there are elements on left side of pivot, then push left side to stack
+            // If there are elements on left side of pivot,
+            // then push left side to stack
             if (p-1 > l)
             {
                 stack[++top] = l;
                 stack[++top] = p - 1;
             }
 
-            // If there are elements on right side of pivot, then push right side to stack
+            // If there are elements on right side of pivot,
+            // then push right side to stack
             if (p+1 < h)
             {
                 stack[++top] = p + 1;

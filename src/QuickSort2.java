@@ -33,13 +33,13 @@ public class QuickSort2 {
      * @param arr       The array to be sorted.
      * @param low       The low value of the partition.
      * @param high      The high value of the partition.
-     * @return
+     * @return          Final sorted position of the pivot.
      */
     private static int partition(int[] arr, int low, int high)
     {
-        int pivot = arr[low];
+        int pivot = arr[high];
 
-        // Index of smaller element
+        // index of smaller element
         int i = (low-1);
         for (int j = low; j <= high-1; j++)
         {
@@ -71,44 +71,43 @@ public class QuickSort2 {
      */
     private static void quickSortIterative (int[] arr, int l, int h) {
 
-        while ((h - l) > 100) {
-            // Create an auxiliary stack
-            int[] stack = new int[h-l+1];
+        // Create an auxiliary stack
+        int[] stack = new int[h-l+1];
 
-            // Initialize top of stack
-            int top = -1;
+        // initialize top of stack
+        int top = -1;
 
-            // Push initial values of l and h to stack
-            stack[++top] = l;
-            stack[++top] = h;
+        // Push initial values of l and h to stack
+        stack[++top] = l;
+        stack[++top] = h;
 
-            // Keep popping from stack while is not empty
-            while (top >= 0)
+        // Keep popping from stack while is not empty
+        while (top >= 0 && ((h-l) > 100))
+        {
+            // Pop h and l
+            h = stack[top--];
+            l = stack[top--];
+
+            // Set pivot element at its correct position in sorted array
+            int p = partition(arr, l, h);
+
+            // If there are elements on left side of pivot, then push left side to stack
+            if (p-1 > l)
             {
-                // Pop h and l
-                h = stack[top--];
-                l = stack[top--];
+                stack[++top] = l;
+                stack[++top] = p - 1;
+            }
 
-                // Set pivot element at its correct position in sorted array
-                int p = partition(arr, l, h);
-
-                // If there are elements on left side of pivot, then push left side to stack
-                if (p-1 > l)
-                {
-                    stack[++top] = l;
-                    stack[++top] = p - 1;
-                }
-
-                // If there are elements on right side of pivot, then push right side to stack
-                if (p+1 < h)
-                {
-                    stack[++top] = p + 1;
-                    stack[++top] = h;
-                }
+            // If there are elements on right side of pivot, then push right side to stack
+            if (p+1 < h)
+            {
+                stack[++top] = p + 1;
+                stack[++top] = h;
             }
         }
 
-        // Send to insertion sort to finish up
-        InsertionSort.sort(arr);
+        // Finish off with insertion sort
+        //InsertionSort.sort(arr);
+
     }
 }

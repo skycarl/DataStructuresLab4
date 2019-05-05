@@ -103,7 +103,7 @@ public class Lab4 {
         performance.setQuickSort1(runTime);
 
        // TODO Output sorted values to file
-        System.out.println("Quicksorted1: \t\t" + Arrays.toString(heapSorted));
+        System.out.println("Quicksorted1: \t\t" + Arrays.toString(quickSorted1));
 
 
 
@@ -118,7 +118,7 @@ public class Lab4 {
         performance.setQuickSort2(runTime);
 
         // TODO Output sorted values to file
-        System.out.println("Quicksorted2: \t\t" + Arrays.toString(heapSorted));
+        System.out.println("Quicksorted2: \t\t" + Arrays.toString(quickSorted2));
 
 
 
