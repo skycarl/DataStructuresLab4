@@ -1,6 +1,11 @@
 /*
-  This program implements two major sorting methods for analysis: Quicksort and heap sort. In Quicksort, four versions
-  are explored.
+  This program implements two major sorting methods for analysis: Quicksort and heap sort.
+
+  In Quicksort, four versions are explored:
+  - [Quicksort1] First item of the partition is selected as the pivot. Sorting is complete when the partition is of size 1 and 2.
+  - [Quicksort2] First item of the partition is selected as the pivot. Quicksort is used down to a partition size of k=100, then an insertion sort is used to finish.
+  - [Quicksort3] First item of the partition is selected as the pivot. Quicksort is used down to a partition size of k=50, then an insertion sort is used to finish.
+  - [Quicksort4] Median-of-three is used as the pivot. Quicksort is used down to a partition size of k=50, then an insertion sort is used to finish.
 
   @author Skyler Carlson
   @since 2019-05-01
@@ -78,7 +83,7 @@ public class Lab4 {
         // Write the sort time in nanoseconds to the performance object
         performance.setHeapSort(runTime);
 
-        // TODO remove print original & sorted
+        // TODO output results to file
         System.out.println("Unsorted: \t\t" + Arrays.toString(unsortedArray));
         System.out.println("Heapsorted: \t" + Arrays.toString(heapSorted));
 
@@ -91,7 +96,7 @@ public class Lab4 {
         runTime = QuickSort1.sort(quickSorted1);
 
         // Write the sort time in nanoseconds to the performance object
-        performance.setHeapSort(runTime);
+        performance.setQuickSort1(runTime);
 
        // TODO Output sorted values to file
         System.out.println("Quicksorted1: \t" + Arrays.toString(heapSorted));
@@ -237,6 +242,7 @@ public class Lab4 {
                 // Test if the line is empty; if so, continue to next loop
                 if (tempLine.isEmpty()) {
                     // If we've reached an empty line, delete the last entry because it is null
+                    // TODO is this the source of the bug with the last element getting deleted?
                     fileNameArray = Arrays.copyOf(fileNameArray, fileNameArray.length-1);
 
                     continue;
