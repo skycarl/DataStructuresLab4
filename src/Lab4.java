@@ -176,7 +176,7 @@ public class Lab4 {
         //System.out.println("Unsorted: \t\t\t" + Arrays.toString(unsortedArray));
         //System.out.println("Heapsorted: \t\t" + Arrays.toString(heapSorted));
         // Create output file for heapsort
-        outputSortedArray(heapSorted, filename);
+        outputSortedArray(heapSorted, filename, "Heapsorted"); // TODO change all these to output all sort output
 
 
         // ***** Quicksort1 *****
@@ -190,7 +190,7 @@ public class Lab4 {
         // Output sorted values to file
         //printStringToFile("Quicksorted1: \t" + Arrays.toString(quickSorted1), sortedOutputFile);
         //System.out.println("Quicksorted1: \t\t" + Arrays.toString(quickSorted1));
-        outputSortedArray(quickSorted1, filename);
+        outputSortedArray(quickSorted1, filename, "Quicksorted1");
 
 
 
@@ -205,7 +205,7 @@ public class Lab4 {
         // Output sorted values to file
         //System.out.println("Quicksorted2: \t\t" + Arrays.toString(quickSorted2));
         //printStringToFile("Quicksorted2: \t" + Arrays.toString(quickSorted2), sortedOutputFile);
-        outputSortedArray(quickSorted2, filename);
+        outputSortedArray(quickSorted2, filename, "Quicksorted2");
 
 
 
@@ -220,7 +220,7 @@ public class Lab4 {
         // Output sorted values to file
         //System.out.println("Quicksorted3: \t\t" + Arrays.toString(quickSorted3));
         //printStringToFile("Quicksorted3: \t" + Arrays.toString(quickSorted3), sortedOutputFile);
-        outputSortedArray(quickSorted3, filename);
+        outputSortedArray(quickSorted3, filename, "Quicksorted3");
 
 
         // ***** Quicksort4 *****
@@ -234,7 +234,7 @@ public class Lab4 {
         // Output sorted values to file
         //System.out.println("Quicksorted4: \t\t" + Arrays.toString(quickSorted4));
         //printStringToFile("Quicksorted4: \t" + Arrays.toString(quickSorted4), sortedOutputFile);
-        outputSortedArray(quickSorted4, filename);
+        outputSortedArray(quickSorted4, filename, "Quicksorted4");
 
 
         // ***** InsertionSort *****
@@ -249,7 +249,7 @@ public class Lab4 {
         // Output sorted values to file
         //System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
         //printStringToFile("InsertionSorted:" + Arrays.toString(insertionSorted), sortedOutputFile);
-        outputSortedArray(insertionSorted, filename);
+        outputSortedArray(insertionSorted, filename, "InsertionSorted");
 
         // TODO remove
         //System.out.println(performance.toString());
@@ -265,10 +265,10 @@ public class Lab4 {
      * @param sorted        The sorted array.
      * @param filename      The name of the input file.
      */
-    private static void outputSortedArray(int[] sorted, String filename) {
+    private static void outputSortedArray(int[] sorted, String filename, String sortType) {
 
         // Modify the filename to be appropriate to output
-        String outputFilename = filename.replace(".", "Sorted.");
+        String outputFilename = filename.replace(".", sortType + ".");
 
         try {
             // Create FileWriter object pointer towards the "output" directory
