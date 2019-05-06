@@ -12,8 +12,7 @@
  */
 
 import java.io.*;
-import java.util.Arrays;
-import java.util.Scanner;
+import java.util.*;
 
 public class Lab4 {
 
@@ -52,7 +51,7 @@ public class Lab4 {
         String[] fileNameArray = importFileNames(inputFilenames);
 
         // TODO remove test print imported file array
-        System.out.println("Imported files: " + Arrays.toString(fileNameArray));
+        System.out.println("Imported " + fileNameArray.length + " files: " + Arrays.toString(fileNameArray));
 
         // Create array of SortPerformance objects to store the results
         SortPerformance[] results = new SortPerformance[fileNameArray.length];
@@ -355,8 +354,6 @@ public class Lab4 {
      */
     private static String[] importFileNames(String filename) {
 
-        // TODO there is some weird behavior when there are extra blank lines in this file; truncates the last element
-
         String tempLine;
         String[] fileNameArray = new String[1];
         int i = 1;
@@ -372,10 +369,6 @@ public class Lab4 {
 
                 // Test if the line is empty; if so, continue to next loop
                 if (tempLine.isEmpty()) {
-                    // If we've reached an empty line, delete the last entry because it is null
-                    // TODO is this the source of the bug with the last element getting deleted?
-                    fileNameArray = Arrays.copyOf(fileNameArray, fileNameArray.length-1);
-
                     continue;
                 }
                 else {
@@ -386,7 +379,6 @@ public class Lab4 {
                 fileNameArray = Arrays.copyOf(fileNameArray, i+1);
 
                 i++;
-
             }
 
             // End of file has been reached; clean things up
@@ -423,7 +415,6 @@ public class Lab4 {
                     ". Program exiting.");
         }
     }
-
 }
 
 
