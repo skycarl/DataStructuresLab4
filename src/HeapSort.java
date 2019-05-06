@@ -1,6 +1,6 @@
 /**
  * This class defines the HeapSort functionality.
- *
+ * <p>
  * Note: this class was adapted from code from https://www.geeksforgeeks.org/iterative-heap-sort/
  *
  * @author Skyler Carlson
@@ -8,101 +8,96 @@
  */
 
 // Java implementation of Iterative Heap Sort
-public class HeapSort {
+class HeapSort {
 
-    private int[] unsorted;
-    private int[] sorted;
+   // --Commented out by Inspection (2019-05-05 22:41):private int[] unsorted;
+   // --Commented out by Inspection (2019-05-05 22:41):private int[] sorted;
 
+   /**
+    * Wrapper method that calls the heapSort() method with the size of the array, so that main() doesn't have to pass it.
+    * This also allows for the timing to happen closer to the actual sorting, for greater accuracy.
+    *
+    * @param unsorted The unsorted array to be sorted.
+    * @return Time in nanoseconds that the sort took.
+    */
+   public static long sort(int[] unsorted) {
 
-    /**
-     * Wrapper method that calls the heapSort() method with the size of the array, so that main() doesn't have to pass it.
-     * This also allows for the timing to happen closer to the actual sorting, for greater accuracy.
-     * @param unsorted      The unsorted array to be sorted.
-     * @return              Time in nanoseconds that the sort took.
-     */
-    public static long sort(int[] unsorted) {
+      //int[] sorted = new int[unsorted.length];
 
-        //int[] sorted = new int[unsorted.length];
+      // Begin timer, using nanoseconds
+      long startTime = System.nanoTime();
 
-        // Begin timer, using nanoseconds
-        long startTime = System.nanoTime();
+      heapSort(unsorted, unsorted.length);
 
-        heapSort(unsorted, unsorted.length);
+      // End timer and return
+      long endTime = System.nanoTime();
+      return endTime - startTime;
+   }
 
-        // End timer and return
-        long endTime = System.nanoTime();
-        return endTime - startTime;
+   /**
+    * Method that builds a max heap for the heapsort; each child is always smaller than the value of its parent.
+    *
+    * @param arr Array being input
+    * @param n   Counter
+    */
+   private static void buildMaxHeap(int[] arr, int n) {
+      for (int i = 1; i < n; i++) {
+         // If child is bigger than parent
+         if (arr[i] > arr[(i - 1) / 2]) {
+            int j = i;
 
-    }
-
-    /**
-     * Method that builds a max heap for the heapsort; each child is always smaller than the value of its parent.
-     * @param arr       Array being input
-     * @param n         Counter
-     */
-    private static void buildMaxHeap(int[] arr, int n)
-    {
-        for (int i = 1; i < n; i++)
-        {
-            // If child is bigger than parent
-            if (arr[i] > arr[(i - 1) / 2])
-            {
-                int j = i;
-
-                // Swap child and parent until parent is smaller
-                while (arr[j] > arr[(j - 1) / 2])
-                {
-                    swap(arr, j, (j - 1) / 2);
-                    j = (j - 1) / 2;
-                }
+            // Swap child and parent until parent is smaller
+            while (arr[j] > arr[(j - 1) / 2]) {
+               swap(arr, j, (j - 1) / 2);
+               j = (j - 1) / 2;
             }
-        }
-    }
+         }
+      }
+   }
 
-    /**
-     * Method that performs the heap sort.
-     * @param arr       Input array
-     * @param n         Counter
-     */
-    private static void heapSort(int[] arr, int n)
-    {
-        buildMaxHeap(arr, n);
+   /**
+    * Method that performs the heap sort.
+    *
+    * @param arr Input array
+    * @param n   Counter
+    */
+   private static void heapSort(int[] arr, int n) {
+      buildMaxHeap(arr, n);
 
-        for (int i = n - 1; i > 0; i--)
-        {
-            // Swap value of first indexed with last indexed
-            swap(arr, 0, i);
+      for (int i = n - 1; i > 0; i--) {
+         // Swap value of first indexed with last indexed
+         swap(arr, 0, i);
 
-            // Maintaining heap property after each swapping
-            int j = 0, index;
+         // Maintaining heap property after each swapping
+         int j = 0, index;
 
-            do
-            {
-                index = (2 * j + 1);
+         do {
+            index = (2 * j + 1);
 
-                // If left child is smaller than right child point index variable to right child
-                if (index < (i - 1) && arr[index] < arr[index + 1])
-                    index++;
+            // If left child is smaller than right child point index variable to right child
+            if (index < (i - 1) && arr[index] < arr[index + 1])
+               index++;
 
-                // If parent is smaller than child then swapping parent with child having higher value
-                if (index < i && arr[j] < arr[index])
-                    swap(arr, j, index);
+            // If parent is smaller than child then swapping parent with child having higher value
+            if (index < i && arr[j] < arr[index])
+               swap(arr, j, index);
 
-                j = index;
+            j = index;
 
-            } while (index < i);
-        }
-    }
+         } while (index < i);
+      }
+   }
 
-    /**
-     * Simple swap method that swaps 2 values in an array.
-     * @param array     Array in which values are being swapped.
-     * @param i         Location of the 1st element being swapped.
-     * @param j         Location from the 2nd element being swapped.
-     */
-    private static void swap(int[] array, int i, int j) {
-        int temp = array[i];
-        array[i] = array[j];
-        array[j] = temp;
-    }
+   /**
+    * Simple swap method that swaps 2 values in an array.
+    *
+    * @param array Array in which values are being swapped.
+    * @param i     Location of the 1st element being swapped.
+    * @param j     Location from the 2nd element being swapped.
+    */
+   private static void swap(int[] array, int i, int j) {
+      int temp = array[i];
+      array[i] = array[j];
+      array[j] = temp;
+   }
 }
