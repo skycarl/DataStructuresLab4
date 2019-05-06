@@ -25,17 +25,17 @@ public class Lab4 {
 
         // Output filenames
         String inputFilenames = null;
-        String sortedOutputFilename = null;
         String summaryOutputFilename;
+
+        // Check that output directory exists; create if not
+        checkOutputDirectory();
 
         // Set up output file names; use default names if output file names are not specified
         if (args.length == 3) {
             inputFilenames = args[0];
-            sortedOutputFilename = args[1];
             summaryOutputFilename = args[2];
 
             // Delete old output files
-            deletePreviousFile(sortedOutputFilename);
             deletePreviousFile(summaryOutputFilename);
 
         }
@@ -45,11 +45,9 @@ public class Lab4 {
         }
         else if (args.length == 1) { // Case where we default to default output filenames
             inputFilenames = args[0];
-            sortedOutputFilename = "sortedOutput.txt";
             summaryOutputFilename = "summaryOutput.txt";
 
             // Delete output files
-            deletePreviousFile(sortedOutputFilename);
             deletePreviousFile(summaryOutputFilename);
         }
         else if (args.length == 0) {
@@ -70,9 +68,6 @@ public class Lab4 {
         // Create array of SortPerformance objects to store the results
         SortPerformance[] results = new SortPerformance[fileNameArray.length];
 
-        // Create sorted output file name
-        File sortedOutputFile = new File(sortedOutputFilename);
-
 
         // Loop through input files and sort them, storing the results
         for (int i = 0; i < fileNameArray.length; i++) {
@@ -91,6 +86,22 @@ public class Lab4 {
 
 
         // Call method to print create and print the summary output file
+    }
+
+    /**
+     * This method checks that the output folder exists. If it does not, it creates it.
+     * Note: this method was created with code adapted from: https://stackoverflow.com/questions/28947250/create-a-directory-if-it-does-not-exist-and-then-create-the-files-in-that-direct
+     */
+    private static void checkOutputDirectory() {
+
+        // Specify output folder name
+        String filePath = "./output/";
+
+        // Create the directory if it does not exist
+        File directory = new File(filePath);
+        if (! directory.exists()){
+            directory.mkdir();
+        }
     }
 
     /**
@@ -223,8 +234,9 @@ public class Lab4 {
         String outputFilename = filename.replace(".", "Sorted.");
 
         try {
-            // Create FileWriter object
-            FileWriter outWriter = new FileWriter(outputFilename);
+            // Create FileWriter object pointer towards the "output" directory
+            FileWriter outWriter = new FileWriter(new File("output", outputFilename));
+
 
             for (int value : sorted) {
                 outWriter.write(value + "\n");
@@ -380,6 +392,7 @@ public class Lab4 {
      * @param filename      The name of the output file, specified in runtime
      * parameters.
      */
+    // TODO this method can probably be deleted since we don't need to append anyhting
     private static void deletePreviousFile(String filename) {
         File oldFile = new File(filename);
         oldFile.delete();

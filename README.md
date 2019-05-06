@@ -5,11 +5,9 @@ Statistics are then printed to an output file.
 #### **Input**  
 The user must specify 3 runtime parameters: 
 1. The name of the file containing filenames of all input files (this file must be in the project root directory)
-2. [Optional] The desired name of the output file (which contains original and sorted data, as well as sort performance)
-3. [Optional] Summary data file name (which contains only summary information on the sorts)
+2. [Optional] Summary data file name (which contains only summary information on the sorts)
 
-Either one or three runtime parameters must be specified. In other words, if one optional parameter is used, 
-the other must be specified as well. The program will delete any output files of the same name as the output files in a given run. 
+The program will delete or overwrite any output files of the same name as the output files in a given run. 
 
 If the two optional parameters are not specified, the program will assign a name. 
 
