@@ -82,7 +82,7 @@ public class Lab4 {
             //System.out.println(Arrays.toString(unsortedArray));
 
             // Send the array to a method that calls the sorting algorithms
-            results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i], sortedOutputFile);
+            results[i] = sortWithAllMethods(unsortedArray, fileNameArray[i]);
 
             //
 
@@ -99,7 +99,7 @@ public class Lab4 {
      * @param filename          String representation of the filename.
      * @return                  A SortPerformance object containing the performance of the sort.
      */
-    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename, File sortedOutputFile) {
+    private static SortPerformance sortWithAllMethods(int[] unsortedArray, String filename) {
 
         // Declare method variables
         int[] heapSorted;
@@ -123,10 +123,12 @@ public class Lab4 {
         performance.setHeapSort(runTime);
 
         // Output results to file
-        printStringToFile("\nUnsorted: \t\t\t" + Arrays.toString(unsortedArray), sortedOutputFile);
-        printStringToFile("\nHeapsorted: \t\t" + Arrays.toString(heapSorted), sortedOutputFile);
+        //printStringToFile("Unsorted: \t" + Arrays.toString(unsortedArray), sortedOutputFile);
+        //printStringToFile("Heapsorted: \t" + Arrays.toString(heapSorted), sortedOutputFile);
         //System.out.println("Unsorted: \t\t\t" + Arrays.toString(unsortedArray));
         //System.out.println("Heapsorted: \t\t" + Arrays.toString(heapSorted));
+        // Create output file for heapsort
+        outputSortedArray(heapSorted, filename);
 
 
         // ***** Quicksort1 *****
@@ -138,8 +140,9 @@ public class Lab4 {
         performance.setQuickSort1(runTime);
 
         // Output sorted values to file
-        printStringToFile("\nQuicksorted1: \t\t" + Arrays.toString(quickSorted1), sortedOutputFile);
+        //printStringToFile("Quicksorted1: \t" + Arrays.toString(quickSorted1), sortedOutputFile);
         //System.out.println("Quicksorted1: \t\t" + Arrays.toString(quickSorted1));
+        outputSortedArray(quickSorted1, filename);
 
 
 
@@ -153,7 +156,8 @@ public class Lab4 {
 
         // Output sorted values to file
         //System.out.println("Quicksorted2: \t\t" + Arrays.toString(quickSorted2));
-        printStringToFile("\nQuicksorted2: \t\t" + Arrays.toString(quickSorted2), sortedOutputFile);
+        //printStringToFile("Quicksorted2: \t" + Arrays.toString(quickSorted2), sortedOutputFile);
+        outputSortedArray(quickSorted2, filename);
 
 
 
@@ -167,8 +171,8 @@ public class Lab4 {
 
         // Output sorted values to file
         //System.out.println("Quicksorted3: \t\t" + Arrays.toString(quickSorted3));
-        printStringToFile("\nQuicksorted3: \t\t" + Arrays.toString(quickSorted3), sortedOutputFile);
-
+        //printStringToFile("Quicksorted3: \t" + Arrays.toString(quickSorted3), sortedOutputFile);
+        outputSortedArray(quickSorted3, filename);
 
 
         // ***** Quicksort4 *****
@@ -181,7 +185,8 @@ public class Lab4 {
 
         // Output sorted values to file
         //System.out.println("Quicksorted4: \t\t" + Arrays.toString(quickSorted4));
-        printStringToFile("\nQuicksorted4: \t\t" + Arrays.toString(quickSorted4), sortedOutputFile);
+        //printStringToFile("Quicksorted4: \t" + Arrays.toString(quickSorted4), sortedOutputFile);
+        outputSortedArray(quickSorted4, filename);
 
 
         // ***** InsertionSort *****
@@ -195,15 +200,41 @@ public class Lab4 {
 
         // Output sorted values to file
         //System.out.println("InsertionSorted: \t" + Arrays.toString(insertionSorted));
-        printStringToFile("\nInsertionSorted: \t" + Arrays.toString(insertionSorted), sortedOutputFile);
+        //printStringToFile("InsertionSorted:" + Arrays.toString(insertionSorted), sortedOutputFile);
+        outputSortedArray(insertionSorted, filename);
 
         // TODO remove
         //System.out.println(performance.toString());
 
         // Print timing data to file
-        printStringToFile(performance.toString(), sortedOutputFile);
+        //printStringToFile(performance.toString(), sortedOutputFile);
 
         return performance;
+    }
+
+    /**
+     * This method takes a sorted array and prints it to a file based on the filename of the input array.
+     * @param sorted        The sorted array.
+     * @param filename      The name of the input file.
+     */
+    private static void outputSortedArray(int[] sorted, String filename) {
+
+        // Modify the filename to be appropriate to output
+        String outputFilename = filename.replace(".", "Sorted.");
+
+        try {
+            // Create FileWriter object
+            FileWriter outWriter = new FileWriter(outputFilename);
+
+            for (int value : sorted) {
+                outWriter.write(value + "\n");
+            }
+            outWriter.close();
+
+        } catch (IOException ioExc) {
+            System.out.println("Error writing to file " + ioExc.getMessage() +
+                    ". Program exiting.");
+        }
     }
 
     /**
@@ -334,7 +365,7 @@ public class Lab4 {
             FileWriter outWriter = new FileWriter(outputFile, true);
 
             // Write the string to file
-            outWriter.write(str);
+            outWriter.write(str + "\n");
             outWriter.close();
 
         } catch (IOException ioExc) {
