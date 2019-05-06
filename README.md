@@ -7,7 +7,7 @@ The user must specify 3 runtime parameters:
 1. The name of the file containing filenames of all input files (this file must be in the project root directory)
 2. [Optional] Summary data file name (which contains only summary information on the sorts)
 
-The program will delete or overwrite any output files of the same name as the output files in a given run. 
+In any given run, the program will overwrite any output files of the same name as output files of the previous run. 
 
 If the two optional parameters are not specified, the program will assign a name. 
 

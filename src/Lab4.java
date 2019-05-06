@@ -25,30 +25,19 @@ public class Lab4 {
 
         // Output filenames
         String inputFilenames = null;
-        String summaryOutputFilename;
+        String summaryOutputFilename = null;
 
         // Check that output directory exists; create if not
         checkOutputDirectory();
 
-        // Set up output file names; use default names if output file names are not specified
-        if (args.length == 3) {
+        // Get the user-defined input filename and user-defined output filename
+        if (args.length == 2) {
             inputFilenames = args[0];
-            summaryOutputFilename = args[2];
-
-            // Delete old output files
-            deletePreviousFile(summaryOutputFilename);
-
-        }
-        else if (args.length == 2) {
-            System.out.println("Error: specify either one or three runtime parameters. Refer to README.md for more information and try again.");
-            System.exit(1);
+            summaryOutputFilename = args[1];
         }
         else if (args.length == 1) { // Case where we default to default output filenames
             inputFilenames = args[0];
             summaryOutputFilename = "summaryOutput.txt";
-
-            // Delete output files
-            deletePreviousFile(summaryOutputFilename);
         }
         else if (args.length == 0) {
             System.out.println("Error: runtime parameters must be specified. At minimum, specify name of file containing input filenames.");
@@ -86,6 +75,55 @@ public class Lab4 {
 
 
         // Call method to print create and print the summary output file
+        outputSummaryData(results, summaryOutputFilename);
+    }
+
+    /**
+     * This method prints a summary of the program to file for easier analysis.
+     * @param results                   Array of SortPerformance objects containing performance data of each sort.
+     * @param summaryOutputFilename     The used-specified (or default, if not specified) filename for the summary output file.
+     */
+    private static void outputSummaryData(SortPerformance[] results, String summaryOutputFilename) {
+
+        // Modify the filename to be appropriate to output
+        String headerString;
+        String performanceString;
+        String horizontalLineString;
+
+        try {
+            // Create FileWriter object pointer towards the "output" directory
+            FileWriter outWriter = new FileWriter(summaryOutputFilename);
+
+            outWriter.write("----- Sorting summary -----\n");
+
+            // Create table header
+            headerString = String.format("\n%-10s%21s%21s%21s%21s%21s%21s", "Sort type", "Heap sort (ns)", "Quicksort1 (ns)", "Quicksort2 (ns)", "Quicksort3 (ns)", "Quicksort4 (ns)", "Insertion sort (ns)");
+            outWriter.write(headerString);
+
+            horizontalLineString = "\n---------------------------------------------------------------------------------------------------------------------------------------";
+            outWriter.write(horizontalLineString);
+
+            // Loop thru SortPerformance array and create a table of the results
+            for (SortPerformance result : results) {
+
+                // Get the sort type from the filename by stripping off the extension
+                String sortType = result.getFilename().replace(".txt", "");
+
+                // Create string for each line and write
+                performanceString = String.format("\n%-10s%21s%21s%21s%21s%21s%21s", sortType, result.getHeapSort(),
+                        result.getQuickSort1(),
+                        result.getQuickSort2(), result.getQuickSort3(), result.getQuickSort4(),
+                        result.getInsertionSort());
+                outWriter.write(performanceString);
+            }
+
+            outWriter.close();
+
+        } catch (IOException ioExc) {
+            System.out.println("Error writing to file " + ioExc.getMessage() +
+                    ". Program exiting.");
+            System.exit(1);
+        }
     }
 
     /**
@@ -95,11 +133,11 @@ public class Lab4 {
     private static void checkOutputDirectory() {
 
         // Specify output folder name
-        String filePath = "./output/";
+        String filePath = "./sortedOutputFiles/";
 
         // Create the directory if it does not exist
         File directory = new File(filePath);
-        if (! directory.exists()){
+        if (! directory.exists()) {
             directory.mkdir();
         }
     }
@@ -235,7 +273,7 @@ public class Lab4 {
 
         try {
             // Create FileWriter object pointer towards the "output" directory
-            FileWriter outWriter = new FileWriter(new File("output", outputFilename));
+            FileWriter outWriter = new FileWriter(new File("sortedOutputFiles", outputFilename));
 
 
             for (int value : sorted) {
@@ -386,17 +424,6 @@ public class Lab4 {
         }
     }
 
-    /**
-     * This method deletes the previous file, if one exists of the same name.
-     *
-     * @param filename      The name of the output file, specified in runtime
-     * parameters.
-     */
-    // TODO this method can probably be deleted since we don't need to append anyhting
-    private static void deletePreviousFile(String filename) {
-        File oldFile = new File(filename);
-        oldFile.delete();
-    }
 }
 
 
