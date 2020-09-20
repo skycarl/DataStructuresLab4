@@ -17,10 +17,12 @@ Note: input files are assumed to be UTF-8 encoded. Unexpected behavior may occur
 
 
 #### **Execution**
-The program may be compiled and run from the command line or terminal as such:    
+The program may be compiled and run from the command line or terminal as such:
+
+```
 javac Lab4.java  
 java Lab4 inputFiles.txt sortedData.txt summaryData.txt
-
+```
 
 #### **System information**
 **IDE:** IntelliJ IDEA 2019.1 (Community Edition)  
